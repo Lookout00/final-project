@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Full Number Game!</title>
+
+    <!--EXTERNAL CSS FILES-->
+    <link href="stylesheets/style_footer.css" rel="stylesheet">
+    <link href="stylesheets/style_header.css" rel="stylesheet">
+
+    <!--EXTERNAL CSS FOR FONT AWESOME--SOCIAL ICONS-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        td {
+            text-align: left;
+        }
+        #playAgainButton{
+            display: none;
+        }
+    </style>
+
+    <script>
+
+        
+        //set answer to a random number
+        let answer = Math.floor(Math.random() * 100) + 1;
+        
+        console.log(answer);
+        
+        let tries = 0;
+        let upper;
+        let lower;
+        let max_tries;
+
+        //Get the balance from local storage and put it into a variable
+        let bankBalance = parseFloat(localStorage.getItem("balance"));
+
+        //MISSING CODE BELOW
+        function setup_Game() {
+            if (bankBalance < 100){
+                alert("You must have at least $100 in your account to play");
+                document.getElementById("submitButton").disabled = true;
+            }
+        
+            upper = 100;
+            lower = 1;
+            max_tries = 8;
+
+            //update the balance on the page with what is stored in local storage
+            document.getElementById("balanceAmountText").innerHTML = bankBalance;
+
+            //set upper and lower fields
+            let fieldToChange = document.getElementById("lower");
+            setInnerHTML(fieldToChange, lower);
+
+            fieldToChange = document.getElementById("upper");
+            setInnerHTML(fieldToChange, upper);
+
+            //initialize guesses to zero.
+            document.getElementById("tries").innerHTML = tries;
+            //initialize message field
+            document.getElementById("msg").innerHTML = "Guess in " + max_tries + " tries.";
+        }
+
+        
+
+        function submitGuess()
+        {
+            //get the user guess
+           let guessField = document.getElementById("guess");  //reference to an OBJECT
+        let userGuess = parseInt(guessField.value);
+        if (Number.isInteger(userGuess))
+        {
+            
+            
+                //update user tries / guesses
+                tries++;
+                document.getElementById("tries").innerHTML = tries;
+
+                //Conditional Statement
+                if (userGuess == answer) {
+                    localStorage.setItem("balance", bankBalance + 100);
+                
+                
+                        document.getElementById("msg").innerHTML = "You win!";
+                        //alert("You win!");
+                        location.reload();
+                } 
+                else //guess was not right
+                {
+                        document.getElementById("msg").innerHTML = "Incorrect.";
+                        if (tries >= max_tries)
+                        //MISSED CODE--SHOWING NAN
+                        {
+                            document.getElementById("msg").innerHTML = "You lose.";
+                            alert("You lose. The number was " + answer);
+                            location.reload();
+                        }
+                }
+
+                //update Upper and lower
+                updateUpLow(userGuess);
+        }
+        else
+        {
+                document.getElementById("msg").innerHTML = "Please enter a valid number";
+        }
+        }
+        function updateUpLow(passedInUserGuess)
+        {
+            let upperField = document.getElementById("upper");
+            let lowerField = document.getElementById("lower");
+            if (passedInUserGuess > answer)
+            {
+                upperField.innerHTML = passedInUserGuess;
+            }
+            else
+            {
+                lowerField.innerHTML = passedInUserGuess;
+            }
+        }
+        function updateMessage(newMessage)
+        {
+            //make sure the message field has an id
+            //get a reference to the message field
+            //set the message
+            let messageField = document.getElementById("msg");
+            messageField.innerHTML = newMessage + " you fool!";
+        }
+        function setInnerHTML(myObject, value)
+        {
+            myObject.innerHTML = value;
+        }
+        function setLower(lowerBound)
+        {
+            //get a reference to upper object
+            let lowerField = document.getElementById("lower");
+            //store a value in a variable that I want to put in the field
+            //put the variable into the innerHTML of the referenced object
+            lowerField.innerHTML = lowerBound;
+        }
+        function setUpper(upperBound)
+        {
+            //get a reference to upper object
+            let upperField = document.getElementById("upper");
+            //store a value in a variable that I want to put in the field
+            //put the variable into the innerHTML of the referenced object
+            upperField.innerHTML = upperBound;
+        }
+
+    </script>
+</head>
+
+<body align="center" onload="setup_Game()">
+    <!--Header-->
+    <div class="topnav">
+        <a href="index.html">Home</a>
+        <a href="bank.html">Bank Page</a>
+        <a href="numberguess.html">Number Game</a>
+        <a href="directory.html" >Bassholes</a>
+        <a href="#contact" >Contact</a>
+        <a href="#login" >Login</a>
+    </div>
+
+    <h1>Full Number Game</h1>
+
+    <text>Balance: </text>
+    <text id="balanceAmountText"></text>
+    <br>
+    <br>
+    <table align="center" border="1">
+        <tr>
+            <td colspan="2">Number is between <span id="lower">A</span> and <span id="upper">B</span></td>
+        </tr>
+        <tr>
+            <td>Enter a guess</td>
+            <td>
+                <input id="guess" type="text" size="3" value="" maxlength="3"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Guesses: <span id="tries">0</span></td>
+            <td><button onclick="submitGuess()" id="submitButton">Submit</button></td>
+        </tr>
+        <tr>
+            <td colspan="2"><span id="msg">Message Here</span></td>
+        </tr>
+    </table>
+    <br>
+
+    <!--FOOTER-->
+    <br>
+    <br>
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-6 col-md-3">
+                    <h6>Helpful Links</h6>
+                    <ul class="footer-links">
+                        <li><a href="about.html"><b>About Us</a></li>
+                            <li><a href="contact.html">Contact Us</a></li>
+                            <li><a href="https://www.rope.com/collections/rope-com">Product Info</a></li>
+                            <li><a href="register.html">Join Mailing List</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-sm-6 col-xs-12">
+                    <p class="copyright-text">Copyright &copy; 1983 All Rights Reserved by
+                        <a href="#">Braid and Bind LLC</a>.
+                    </p>
+                </div>  
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <ul class="social-icons">
+                        <li><a class="google" href="https://www.google.com/"><i class="fa fa-google"></i></a></li>
+                        <li><a class="reddit" href="https://www.reddit.com/"><i class="fa fa-reddit"></i></a></li>
+                        <li><a class="linkedin" href="https://www.linkedin.com/"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a class="youtube" href="https://www.youtube.com/"><i class="fa fa-youtube"></i></a></li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+</body>
+    
+</html>

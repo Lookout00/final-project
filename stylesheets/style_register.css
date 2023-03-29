@@ -1,0 +1,88 @@
+* { margin: 0;
+    padding: 0;
+    box-sizing: border-box
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+.header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    column-gap: 0; 
+    }          
+    .boat2 {
+        height: 300px;
+        width: 415px;
+    }
+    .cove {
+        height: 300px;
+        width: 450px;
+    }
+    .trio {
+        height: 300px;
+        width: 434px;            
+    }
+    .logo {
+        height: 300px;
+        width: 300px;
+    }
+
+/* Add padding to containers */
+.container {
+padding: 16px;
+background-image: url(images/scene.JPG);
+background-repeat: no-repeat;
+background-size: cover;
+}
+
+.head {
+    color: midnightblue;
+    text-align: center;
+    font-size: xx-large;
+    
+}
+/* Full-width input fields */
+input[type=text], input[type=password] {
+width: 25%;
+padding: 15px;
+margin: 5px 0 22px 0;
+display: inline-block;
+border: none; 
+}
+
+input[type=text]:focus, input[type=password]:focus {
+background-color: cornflowerblue;
+outline: none;
+}
+
+/* Overwrite default styles of hr */
+hr {
+border: 1px solid dodgerblue;
+margin-bottom: 25px;
+width: 25%;
+}
+
+/* Set a style for the submit/register button */
+.registerbtn {
+background-color: midnightblue;
+color: white;
+padding: 16px 20px;
+margin: 8px 0;
+border: none;
+cursor: pointer;
+width: 25%;
+opacity: 0.9;
+}
+
+.registerbtn:hover {
+opacity:1;
+}
+
+/* Add a blue text color to links */
+a {
+color: dodgerblue;
+}
+
+/* Set a grey background color and center the text of the "sign in" section */
+.signin {
+background-color: gray;
+text-align: left;
+}
