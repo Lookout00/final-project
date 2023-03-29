@@ -1,232 +1,265 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Bank Simulator</title>
+  <head>
+    <title>Bank Simulator</title>
 
     <!--EXTERNAL CSS FILES-->
-    <link href="stylesheets/style_footer.css" rel="stylesheet">
-    <link href="stylesheets/style_header.css" rel="stylesheet">
+    <link href="stylesheets/style_footer.css" rel="stylesheet" />
+    <link href="stylesheets/style_header.css" rel="stylesheet" />
 
     <!--EXTERNAL CSS FOR FONT AWESOME--SOCIAL ICONS-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
 
     <!--CSS FOR BANK-->
 
-        <style>
-            #welcomeHeader {
-                color: dodgerblue;
-                text-align: center;    
-            }
-            #balanceAmount {
-                color: blue;
-                text-align: center;                
-            }
-            .header {
+    <style>
+      #welcomeHeader {
+        color: dodgerblue;
+        text-align: center;
+      }
+      #balanceAmount {
+        color: blue;
+        text-align: center;
+      }
+      .header {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
-        column-gap: 0; 
-        }         
-        .boat {
-            height: 300px;
-            width: 383px;
-        }
-        .logo {
-            height: 300px;
-            width: 350px;
-        }
-        .beaverview {
-            height: 300px;
-            width: 400px;
-        }
-        .family {
-            height: 300px;
-            width: 450px;            
-        }
+        column-gap: 0;
+      }
+      .boat {
+        height: 300px;
+        width: 383px;
+      }
+      .logo {
+        height: 300px;
+        width: 350px;
+      }
+      .beaverview {
+        height: 300px;
+        width: 400px;
+      }
+      .family {
+        height: 300px;
+        width: 450px;
+      }
+    </style>
 
-        </style>
+    <script>
+      //setup object for a checking account
+      var checkingAccount = {
+        balance: 300,
+        firstName: "John",
+        lastName: "Banks",
+        errorMessage: "",
 
-        <script>
-            //setup object for a checking account
-            var checkingAccount = {
-                balance: 300,
-                firstName: 'John',
-                lastName: 'Banks',
-                errorMessage: '',
+        //Get a withdrawl number and subtract it from the current balance
+        withdrawl: function (withdrawlAmount) {
+          //Check the withdrawlAmount is a valid number
+          if (this.checkValidInput(withdrawlAmount)) {
+            this.balance = this.balance - parseFloat(withdrawlAmount);
+            localStorage.setItem("balance", this.balance);
+          }
 
-                //Get a withdrawl number and subtract it from the current balance
-                withdrawl: function (withdrawlAmount) {
-                    //Check the withdrawlAmount is a valid number
-                    if(this.checkValidInput(withdrawlAmount)) {
-                    this.balance = this.balance - parseFloat(withdrawlAmount);
-                    localStorage.setItem("balance", this.balance);
+          return this.balance;
+        },
 
-                    }
+        //Get a deposit number and subtract it from the current balance
+        deposit: function (depositAmount) {
+          //Check the depositAmount is a valid number
+          if (this.checkValidInput(depositAmount)) {
+            this.balance = this.balance + parseFloat(depositAmount);
+            localStorage.setItem("balance", this.balance);
+          }
+          return this.balance;
+        },
 
-                    return this.balance;
+        //Return the current balance of the checking account
+        getBalance: function () {
+          //Check if there is a balance in the local storage. If not populate the local storage with the default balance
+          if (localStorage.getItem("balance") == null) {
+            localStorage.setItem("balance", this.balance);
+          }
 
-                },
-                
-                //Get a deposit number and subtract it from the current balance
-                deposit: function(depositAmount) {
-                    //Check the depositAmount is a valid number
-                    if(this.checkValidInput(depositAmount)){
-                    this.balance = this.balance + parseFloat (depositAmount);
-                    localStorage.setItem("balance", this.balance);
+          this.balance = parseFloat(localStorage.getItem("balance"));
+          return this.balance;
+        },
 
-                    }
-                    return this.balance;
-                },
+        getName: function () {
+          return this.firstName + " " + this.lastName;
+        },
 
-                //Return the current balance of the checking account
-                getBalance: function(){
-                    //Check if there is a balance in the local storage. If not populate the local storage with the default balance
-                    if (localStorage.getItem("balance") == null){
-                        localStorage.setItem("balance", this.balance);
-                    }
+        //Check that the value the user has entered is valid
+        checkValidInput: function (InputValue) {
+          this.errorMessage = "";
 
-                    this.balance = parseFloat(localStorage.getItem("balance"));
-                    return this.balance;
-                },
+          //First check that the value entered is a number
+          if (!parseFloat(InputValue)) {
+            this.errorMessage = "Input is not a valid number";
+            //alert("This is not a valid numer");
+            return false;
+          }
 
-                getName: function(){
-                    return this.firstName + " " + this.lastName;
-                },
+          //Check that InputValue is greater than 0
+          if (InputValue <= 0) {
+            this.errorMessage = "Input must be greater than zero";
+            //alert("Input must be greater than zero");
+            return false;
+          }
 
-                //Check that the value the user has entered is valid
-                checkValidInput: function(InputValue){
-                    this.errorMessage = "";
+          return true;
+        },
+      };
 
-                    //First check that the value entered is a number
-                    if(!parseFloat(InputValue)){
-                        this.errorMessage = "Input is not a valid number";
-                        //alert("This is not a valid numer");
-                        return false;
-                    }
+      //Funtions used on webpage
+      //Deposit from input field and update the balance on the page
+      function deposit() {
+        document.getElementById("balanceAmount").innerHTML =
+          checkingAccount.deposit(
+            document.getElementById("depositInput").value
+          );
+        document.getElementById("errorDiv").innerHTML =
+          checkingAccount.errorMessage;
+      }
 
-                    //Check that InputValue is greater than 0
-                    if(InputValue <= 0){
-                        this.errorMessage = "Input must be greater than zero";
-                        //alert("Input must be greater than zero");
-                        return false;
-                    }
+      //withdraw from input field and update the balance on the page
+      function withdraw() {
+        document.getElementById("balanceAmount").innerHTML =
+          checkingAccount.withdrawl(
+            document.getElementById("withdrawInput").value
+          );
+        document.getElementById("errorDiv").innerHTML =
+          checkingAccount.errorMessage;
+      }
 
-                    return true;
+      //update balance on page
+      function updateBalance() {
+        //Display Balance on page
+        document.getElementById("balanceAmount").innerHTML =
+          checkingAccount.getBalance();
+        //Display Welcome and the first and last name on page--The quotation space after Welcome put a space. => "Welcome "
+        document.getElementById("welcomeHeader").innerHTML =
+          "Welcome " + checkingAccount.getName();
+      }
 
-                },
-            }
+      //Send user to edit profile page--CHANGE THE HREF TO THE PAGE YOU WANT IT TO GO TO
+      //function editProfilePage(){
+      //window.location.href = "https://somewhatchicken.com/FEClassWinter2022/pages/jordan-h/profile.html";
+      //}
+    </script>
+  </head>
 
-
-            //Funtions used on webpage
-            //Deposit from input field and update the balance on the page
-            function deposit(){
-                document.getElementById("balanceAmount").innerHTML = checkingAccount.deposit(document.getElementById("depositInput").value);
-                document.getElementById("errorDiv").innerHTML = checkingAccount.errorMessage;
-            }
-
-            //withdraw from input field and update the balance on the page
-            function withdraw(){
-                document.getElementById("balanceAmount").innerHTML = checkingAccount.withdrawl(document.getElementById("withdrawInput").value);
-                document.getElementById("errorDiv").innerHTML = checkingAccount.errorMessage;
-
-            }
-
-            //update balance on page
-            function updateBalance(){
-                //Display Balance on page
-                document.getElementById("balanceAmount").innerHTML = checkingAccount.getBalance();
-                //Display Welcome and the first and last name on page--The quotation space after Welcome put a space. => "Welcome "
-                document.getElementById("welcomeHeader").innerHTML = "Welcome " + checkingAccount.getName();
-            }
-
-            //Send user to edit profile page--CHANGE THE HREF TO THE PAGE YOU WANT IT TO GO TO
-            //function editProfilePage(){
-                //window.location.href = "https://somewhatchicken.com/FEClassWinter2022/pages/jordan-h/profile.html";
-            //}
-        </script>
-
-    </head>
-
-    <body onload="updateBalance()">
-
-        <!--Header-->
-        <div class="topnav">
-            <a href="index.html">Home</a>
-            <a href="bank.html">Bank Page</a>
-            <a href="numberguess.html">Number Game</a>
-            <a href="directory.html" >Bassholes</a>
-            <a href="#contact" >Contact</a>
-            <a href="login.html" >Login</a>
-        </div>
-<!--<button onClick="editProfilePage()" style="float:right">Edit Profile</button>-->    
-<div class="header">
-    <div>
-        <img src="images/boat.JPG" alt="boat" class="boat">  
+  <body onload="updateBalance()">
+    <!--Header-->
+    <div class="topnav">
+      <a href="index.html">Home</a>
+      <a href="bank.html">Bank Page</a>
+      <a href="numberguess.html">Number Game</a>
+      <a href="directory.html">Bassholes</a>
+      <a href="#contact">Contact</a>
+      <a href="login.html">Login</a>
     </div>
-    <div>
-        <img src="images/logo2.png" alt="logo" class="logo">
+    <!--<button onClick="editProfilePage()" style="float:right">Edit Profile</button>-->
+    <div class="header">
+      <div>
+        <img src="images/boat.JPG" alt="boat" class="boat" />
+      </div>
+      <div>
+        <img src="images/logo2.png" alt="logo" class="logo" />
+      </div>
+      <div>
+        <img src="images/beaverview.JPG" alt="beaverview" class="beaverview" />
+      </div>
+      <div>
+        <img src="images/family.JPG" alt="family" class="family" />
+      </div>
     </div>
-    <div>
-        <img src="images/beaverview.JPG" alt="beaverview" class="beaverview">
-    </div>
-    <div>
-        <img src="images/family.JPG" alt="family" class="family">
-    </div>
-</div>
-    <br>
-    <br>
-        <center>
-        <h2 id="welcomeHeader"></h2>
-        <text>Balance: </text>
-        <text id="balanceAmount"></text>
-        <br>
-        <br>
-        <input type="text" id="depositInput">
-        <button onclick="deposit()">Deposit</button>
-        <br>
-        <br>
-        <input type="text" id="withdrawInput">
-        <button onclick="withdraw()">Withdraw</button>
-        <br>
-        <div id="errorDiv" style="color:red"></div>
-        </center>
+    <br />
+    <br />
+    <center>
+      <h2 id="welcomeHeader"></h2>
+      <text>Balance: </text>
+      <text id="balanceAmount"></text>
+      <br />
+      <br />
+      <input type="text" id="depositInput" />
+      <button onclick="deposit()">Deposit</button>
+      <br />
+      <br />
+      <input type="text" id="withdrawInput" />
+      <button onclick="withdraw()">Withdraw</button>
+      <br />
+      <div id="errorDiv" style="color: red"></div>
+    </center>
 
-        <!--Footer-->
-<br>
-<br>
-<footer class="site-footer">
-    <div class="container">
+    <!--Footer-->
+    <br />
+    <br />
+    <footer class="site-footer">
+      <div class="container">
         <div class="row">
-            <div class="col-xs-6 col-md-3">
-                <h6>Helpful Links</h6>
-                <ul class="footer-links">
-                    <li><a href="aboutus.html"><b>About Us</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                    <li><a href="https://www.agfc.com/en/resources/licensing/fishinglicenses/" target= "_blank">Arkansas Fishing License</a></li>
-                    <li><a href="register.html">Join Mailing List</a></li>
-                </ul>
-            </div>
+          <div class="col-xs-6 col-md-3">
+            <h6>Helpful Links</h6>
+            <ul class="footer-links">
+              <li>
+                <a href="aboutus.html"><b>About Us</b></a>
+              </li>
+              <li><a href="contact.html">Contact Us</a></li>
+              <li>
+                <a
+                  href="https://www.agfc.com/en/resources/licensing/fishinglicenses/"
+                  target="_blank"
+                  >Arkansas Fishing License</a
+                >
+              </li>
+              <li><a href="register.html">Join Mailing List</a></li>
+            </ul>
+          </div>
         </div>
-        <hr>
-    </div>
-    <div class="container">
+        <hr />
+      </div>
+      <div class="container">
         <div class="row">
-            <div class="col-md-8 col-sm-6 col-xs-12">
-                <p class="copyright-text">Copyright &copy; 1983 All Rights Reserved by
-                    <a href="#">Bassholes Guide Services</a>.
-                </p>
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <ul class="social-icons">
-                    <li><a class="google" href="https://www.google.com/" target= "_blank"><i class="fa fa-google"></i></a></li>
-                    <li><a class="reddit" href="https://www.reddit.com/" target= "_blank"><i class="fa fa-reddit"></i></a></li>
-                    <li><a class="linkedin" href="https://www.linkedin.com/" target= "_blank"><i class="fa fa-linkedin"></i></a></li>
-                    <li><a class="youtube" href="https://www.youtube.com/" target= "_blank"><i class="fa fa-youtube"></i></a></li>
-                </ul>
-            </div>
+          <div class="col-md-8 col-sm-6 col-xs-12">
+            <p class="copyright-text">
+              Copyright &copy; 1983 All Rights Reserved by
+              <a href="#">Bassholes Guide Services</a>.
+            </p>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <ul class="social-icons">
+              <li>
+                <a class="google" href="https://www.google.com/" target="_blank"
+                  ><i class="fa fa-google"></i
+                ></a>
+              </li>
+              <li>
+                <a class="reddit" href="https://www.reddit.com/" target="_blank"
+                  ><i class="fa fa-reddit"></i
+                ></a>
+              </li>
+              <li>
+                <a
+                  class="linkedin"
+                  href="https://www.linkedin.com/"
+                  target="_blank"
+                  ><i class="fa fa-linkedin"></i
+                ></a>
+              </li>
+              <li>
+                <a
+                  class="youtube"
+                  href="https://www.youtube.com/"
+                  target="_blank"
+                  ><i class="fa fa-youtube"></i
+                ></a>
+              </li>
+            </ul>
+          </div>
         </div>
-    </div>
-</footer>
-
-    </body>
+      </div>
+    </footer>
+  </body>
 </html>
