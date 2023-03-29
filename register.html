@@ -1,79 +1,102 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Registration</title>
+  </head>
+  <!--EXTERNAL CSS FILES-->
+  <link href="stylesheets/style_footer.css" rel="stylesheet" />
+  <link href="stylesheets/style_header.css" rel="stylesheet" />
+  <link href="stylesheets/style_register.css" rel="stylesheet" />
 
-</head>
-            <!--EXTERNAL CSS FILES-->
-            <link href="stylesheets/style_footer.css" rel="stylesheet">
-            <link href="stylesheets/style_header.css" rel="stylesheet">
-            <link href="stylesheets/style_register.css" rel="stylesheet">
-    
-            <!--EXTERNAL CSS FOR FONT AWESOME--SOCIAL ICONS-->
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
-    <style>
-        body {
-    margin: 0;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    background-image: url(images/scene.JPG);
-    background-repeat: no-repeat;
-    background-size: cover;
-    }        
-    </style>
+  <!--EXTERNAL CSS FOR FONT AWESOME--SOCIAL ICONS-->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+  />
+  <style>
+    body {
+      margin: 0;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      background-image: url(images/scene.JPG);
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+  </style>
 
+  <body>
+    <!--Start of the webpage-->
 
-<body>
-<!--Start of the webpage-->
-
-<div class="header">
-    <div>
-        <img src="images/boat2.JPG" alt="boat2" class="boat2">  
+    <div class="header">
+      <div>
+        <img src="images/boat2.JPG" alt="boat2" class="boat2" />
+      </div>
+      <div>
+        <img src="images/cove.jpg" alt="cove" class="cove" />
+      </div>
+      <div>
+        <img src="images/trio.JPG" alt="trio" class="trio" />
+      </div>
+      <div>
+        <img src="images/logo2.png" alt="logo" class="logo" />
+      </div>
     </div>
-    <div>
-        <img src="images/cove.jpg" alt="cove" class="cove">
+    <div class="container">
+      <form action="bank.html">
+        <h1 class="head">Registration</h1>
+        <center>
+          <p>Please fill out the form below to create an account.</p>
+          <hr />
+
+          <label for="email"><b>Email</b></label>
+          <br />
+          <input
+            type="text"
+            placeholder="Enter Email"
+            name="email"
+            id="email"
+            required
+          />
+          <br />
+
+          <label for="psw"><b>Password</b></label>
+          <br />
+          <input
+            type="password"
+            placeholder="Enter Password"
+            name="psw"
+            id="psw"
+            required
+          />
+          <br />
+
+          <label for="psw-repeat"><b>Re-enter Password</b></label>
+          <br />
+          <input
+            type="password"
+            placeholder="Repeat Password"
+            name="psw-repeat"
+            id="psw-repeat"
+            required
+          />
+          <br />
+          <hr />
+
+          <button type="submit" class="registerbtn">Register</button>
+        </center>
+        <div class="container signin">
+          <p>Already have an account? <a href="#">Sign in</a></p>
+        </div>
+      </form>
     </div>
-    <div>
-        <img src="images/trio.JPG" alt="trio" class="trio">
-    </div>
-    <div>
-        <img src="images/logo2.png" alt="logo" class="logo">
-    </div>
-</div>
-<form action="bank.html">
-<div class="container">
-    <h1 class="head">Registration</h1>
-    <center><p>Please fill out the form below to create an account.</p>
-    <hr>
+    <br />
 
-    <label for="email"><b>Email</b></label>
-    <br>
-    <input type="text" placeholder="Enter Email" name="email" id="email" required>
-    <br>
-
-    <label for="psw"><b>Password</b></label>
-    <br>
-    <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
-    <br>
-
-    <label for="psw-repeat"><b>Re-enter Password</b></label>
-    <br>
-    <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>
-    <br>
-    <hr>
-
-    <button type="submit" class="registerbtn">Register</button></center>
-    <div class="container signin">
-        <p>Already have an account? <a href="#">Sign in</a>.</p>
-    </div>
-    </form>
-</div>
-<br>
-
-<script src="script_register.js"></script>
-
-</body>
+    <script src="script_register.js"></script>
+  </body>
 </html>
