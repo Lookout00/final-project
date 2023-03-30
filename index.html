@@ -41,10 +41,10 @@
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         color: midnightblue;
       }
-      .header {
+      .image-container {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-        column-gap: 0;
+        gap: 0.5rem;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       }
       .stripe {
         height: 300px;
@@ -92,6 +92,30 @@
         height: 500px;
         width: 500px;
       }
+
+      .bg-image {
+        flex: 1;
+        background-size: cover;
+        background-position: center;
+        min-width: 280px;
+        height: 420px;
+      }
+
+      .bg-image.one {
+        background-image: url("images/cod.jpg");
+      }
+
+      .bg-image.two {
+        background-image: url("images/logo2.png");
+      }
+
+      .bg-image.three {
+        background-image: url("images/beaver2.jpg");
+      }
+
+      .bg-image.four {
+        background-image: url("images/catch.jpg");
+      }
     </style>
   </head>
   <body>
@@ -105,19 +129,11 @@
       <a href="login.html">Login</a>
     </div>
     <!--Start of the webpage-->
-    <div class="header">
-      <div>
-        <img src="images/cod.jpg" alt="striper" class="stripe" />
-      </div>
-      <div>
-        <img src="images/logo2.png" alt="logo" class="logo" />
-      </div>
-      <div>
-        <img src="images/beaver2.jpg" alt="beaver2" class="beaver2" />
-      </div>
-      <div>
-        <img src="images/catch.jpg" alt="catch" class="catch" />
-      </div>
+    <div class="image-container">
+      <div class="bg-image one"></div>
+      <div class="bg-image two"></div>
+      <div class="bg-image three"></div>
+      <div class="bg-image four"></div>
     </div>
     <br />
     <h1 class="title_spotlight">Welcome to Bassholes Fishing Guides</h1>
